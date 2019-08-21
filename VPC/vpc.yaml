@@ -1,94 +1,93 @@
-Description: "Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-tables "
+Description: Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-tables 
 
 Parameters: 
   #-------------
   # VPC
   VPCName:
-    Description: "Nombre de la VPC a crear."
+    Description: Nombre de la VPC a crear.
     Type: String
-    Default: "vpc_joseph"
+    Default: vpc_joseph
     
   #-------------
   # Subredes
 
   Subnet1Name:
-    Description: "Nombre de la subnet 1 privada"
+    Description: Nombre de la subnet 1 privada
     Type: String
-    Default: "subred1_joseph"
+    Default: subred1_joseph
   Subnet2Name:
-    Description: "Nombre de la subnet 2 privada"
+    Description: Nombre de la subnet 2 privada
     Type: String
-    Default: "subred2_joseph"
+    Default: subred2_joseph
   Subnet3Name:
-    Description: "Nombre de la subnet 3 privada"
+    Description: Nombre de la subnet 3 privada
     Type: String
-    Default: "subred3_joseph"
+    Default: subred3_joseph
   Subnet4Name:
-    Description: "Nombre de la subnet 4 pública"
+    Description: Nombre de la subnet 4 pública
     Type: String
-    Default: "subred4_joseph"
+    Default: subred4_joseph
   Subnet5Name:
-    Description: "Nombre de la subnet 5 pública"
+    Description: Nombre de la subnet 5 pública
     Type: String
-    Default: "subred5_joseph"
+    Default: subred5_joseph
   Subnet6Name:
-    Description: "Nombre de la subnet 6 pública"
+    Description: Nombre de la subnet 6 pública
     Type: String
-    Default: "subred6_joseph"
+    Default: subred6_joseph
 
   #-------------
   # Gateway
   GatewayName:
-    Description: "Nombre del gateway"
+    Description: Nombre del gateway
     Type: String
-    Default: "gtw_joseph"
+    Default: gtw_joseph
 
   #-------------
   # Public route table
   PublicRouteTableName:
-    Description: "Nombre de la Public Route Table"
+    Description: Nombre de la Public Route Table
     Type: String
-    Default: "rtPublic_joseph"
+    Default: rtPublic_joseph
     
   #-------------
   # Private route table
   PrivateRouteTableName:
-    Description: "Nombre de la Private Route Table"
+    Description: Nombre de la Private Route Table
     Type: String
-    Default: "rtPrivate_joseph"
+    Default: rtPrivate_joseph
 
 Mappings:
   SubnetConfig:
     VPC:
-      CIDR: "10.0.0.0/24"
+      CIDR: 10.0.0.0/24
     Private1:
-      CIDR: "10.0.0.0/27"
+      CIDR: 10.0.0.0/27
     Private2:
-      CIDR: "10.0.0.32/27"
+      CIDR: 10.0.0.32/27
     Private3:
-      CIDR: "10.0.0.64/27"
+      CIDR: 10.0.0.64/27
     Public1:
-      CIDR: "10.0.0.96/27"
+      CIDR: 10.0.0.96/27
     Public2:
-      CIDR: "10.0.0.128/27"
+      CIDR: 10.0.0.128/27
     Public3:
-      CIDR: "10.0.0.160/27"
+      CIDR: 10.0.0.160/27
 
 Resources:
 
   #-------------
   # VPC
   VPC:
-    Type: "AWS::EC2::VPC"
+    Type: AWS::EC2::VPC
     Properties:
       CidrBlock:
         Fn::FindInMap:
-          - "SubnetConfig"
-          - "VPC"
-          - "CIDR"
+          - SubnetConfig
+          - VPC
+          - CIDR
       Tags: 
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'VPCName'
 
   #-------------
@@ -100,12 +99,11 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 
         Fn::FindInMap:
-          - "SubnetConfig"
-          - "Private1"
-          - "CIDR"  
+          - SubnetConfig
+          - Private1
+          - CIDR  
       Tags: 
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'Subnet1Name'
           
   Subred2:
@@ -114,12 +112,11 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 
         Fn::FindInMap:
-          - "SubnetConfig"
-          - "Private2"
-          - "CIDR"  
+          - SubnetConfig
+          - Private2
+          - CIDR  
       Tags: 
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'Subnet2Name'
   Subred3:
     Type: AWS::EC2::Subnet
@@ -127,12 +124,11 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 
         Fn::FindInMap:
-          - "SubnetConfig"
-          - "Private3"
-          - "CIDR"  
+          - SubnetConfig
+          - Private3
+          - CIDR  
       Tags: 
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'Subnet3Name'
   Subred4:
     Type: AWS::EC2::Subnet
@@ -140,13 +136,12 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 
         Fn::FindInMap:
-          - "SubnetConfig"
-          - "Public1"
-          - "CIDR"  
+          - SubnetConfig
+          - Public1
+          - CIDR  
       MapPublicIpOnLaunch: true
       Tags: 
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'Subnet4Name'
   Subred5:
     Type: AWS::EC2::Subnet
@@ -154,13 +149,12 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 
         Fn::FindInMap:
-          - "SubnetConfig"
-          - "Public2"
-          - "CIDR"  
+          - SubnetConfig
+          - Public2
+          - CIDR  
       MapPublicIpOnLaunch: true
       Tags: 
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'Subnet5Name'
   Subred6:
     Type: AWS::EC2::Subnet
@@ -168,27 +162,25 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 
         Fn::FindInMap:
-          - "SubnetConfig"
-          - "Public3"
-          - "CIDR" 
+          - SubnetConfig
+          - Public3
+          - CIDR 
       MapPublicIpOnLaunch: true 
       Tags: 
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'Subnet6Name'
 
   #-------------
   # Gateway
   InternetGateway:
-    Type: "AWS::EC2::InternetGateway"
+    Type: AWS::EC2::InternetGateway
     Properties:
       Tags: 
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'GatewayName' 
 
   GatewayToInternet:
-    Type: "AWS::EC2::VPCGatewayAttachment"
+    Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId: !Ref VPC
       InternetGatewayId: !Ref InternetGateway
@@ -197,40 +189,39 @@ Resources:
   # Public Route Table 
 
   PublicRouteTable:
-    Type: "AWS::EC2::RouteTable"
+    Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
       Tags:
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'PublicRouteTableName' 
 
   #Agregando el Gateway
   PublicRoute:
-    Type: "AWS::EC2::Route" 
+    Type: AWS::EC2::Route 
     Properties:
       RouteTableId:
-        Ref: "PublicRouteTable"
-      DestinationCidrBlock: "0.0.0.0/0"
+        Ref: PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
       GatewayId:
-        Ref: "InternetGateway"
+        Ref: InternetGateway
 
 
   #Asociando
   PublicRouteTableAsosociation4:
-    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref Subred4 
       RouteTableId: !Ref PublicRouteTable
 
   PublicRouteTableAsosociation5:
-    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref Subred5 
       RouteTableId: !Ref PublicRouteTable
   
   PublicRouteTableAsosociation6:
-    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref Subred6 
       RouteTableId: !Ref PublicRouteTable
@@ -239,29 +230,28 @@ Resources:
   # Private Route Table 
 
   PrivateRouteTable:
-    Type: "AWS::EC2::RouteTable"
+    Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
       Tags:
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'PrivateRouteTableName' 
 
   #Asociando
   PublicRouteTableAsosociation1:
-    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref Subred1
       RouteTableId: !Ref PrivateRouteTable
       
   PublicRouteTableAsosociation2:
-    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref Subred2
       RouteTableId: !Ref PrivateRouteTable
 
   PublicRouteTableAsosociation3:
-    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref Subred3
       RouteTableId: !Ref PrivateRouteTable

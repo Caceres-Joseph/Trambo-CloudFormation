@@ -9,10 +9,18 @@ Parameters:
   #-------------
   # VPC
   VPCName:
-    Description: "Nombre de la VPC a crear."
+    Description: Nombre de la VPC a crear.
     Type: String
-    Default: "vpc_joseph"
-    
+    Default: vpc_joseph
+
+  #+------------------------------------------------------------------
+  #|  ARCHIVO EFS.yaml
+  #+------------------------------------------------------------------
+
+  BucketName:
+    Description: Bucket name where the templates are located
+    Type: String
+    Default: bckt-joseph.s3-us-west-2.amazonaws.com
 Resources:
 
   #-------------
@@ -22,7 +30,7 @@ Resources:
     Properties:
       Parameters:
         VPCName: !Ref VPCName
-      TemplateURL: https://bckt-joseph.s3-us-west-2.amazonaws.com/Ejerccio5/VPC/vpc.yaml 
+      TemplateURL: !Sub https://${BucketName}/Ejerccio5/VPC/vpc.yaml 
 
   #-------------
   # EFS
@@ -33,4 +41,4 @@ Resources:
       Parameters:
         VPC: !GetAtt 'VPC.Outputs.idVPC'
         Subnet6: !GetAtt 'VPC.Outputs.IdSubRed6'
-      TemplateURL: https://bckt-joseph.s3-us-west-2.amazonaws.com/Ejerccio5/EFS/efs.yaml 
+      TemplateURL: !Sub https://${BucketName}/Ejerccio5/EFS/efs.yaml 

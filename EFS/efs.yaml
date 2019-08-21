@@ -1,29 +1,29 @@
-Description: "Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-tables "
+Description: Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-tables 
 
 Parameters: 
   #-------------
   # VPC
   VPC:
-    Description: "Id de la vpc"
+    Description: Id de la vpc
     Type: String 
 
   Subnet6:
-    Description: "Subnet publica"
+    Description: Subnet publica
     Type: String 
 
   #-------------
   # Security Group
   SGName:
-    Description: "Nombre del security group"
+    Description: Nombre del security group
     Type: String
-    Default: "sg_joseph"
+    Default: sg_joseph
 
   #-------------
   # EFS
   EFSName:
-    Description: "Nombre del sistema de archivos"
+    Description: Nombre del sistema de archivos
     Type: String
-    Default: "efs_joseph"
+    Default: efs_joseph
 
 Resources:
 
@@ -49,8 +49,7 @@ Resources:
         ToPort: '2049'
         CidrIp: 0.0.0.0/0
       Tags:
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'SGName' 
 
   #-------------
@@ -60,8 +59,7 @@ Resources:
     Properties:
       PerformanceMode: generalPurpose
       FileSystemTags:
-        -
-          Key: "Name"
+        - Key: Name
           Value: !Ref 'EFSName' 
 
           
@@ -71,8 +69,7 @@ Resources:
       FileSystemId: !Ref FileSystem
       SubnetId: !Ref Subnet6
       SecurityGroups: 
-        -
-          !Ref InstanceSecurityGroup
+        - !Ref InstanceSecurityGroup
 
 Outputs:
   idEFS:
