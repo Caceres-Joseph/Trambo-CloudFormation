@@ -1,0 +1,81 @@
+Description: "Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-tables "
+
+Parameters: 
+  #-------------
+  # VPC
+  VPC:
+    Description: "Id de la vpc"
+    Type: String 
+
+  Subnet6:
+    Description: "Subnet publica"
+    Type: String 
+
+  #-------------
+  # Security Group
+  SGName:
+    Description: "Nombre del security group"
+    Type: String
+    Default: "sg_joseph"
+
+  #-------------
+  # EFS
+  EFSName:
+    Description: "Nombre del sistema de archivos"
+    Type: String
+    Default: "efs_joseph"
+
+Resources:
+
+  #-------------
+  # Grupos de seguridad 
+
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Puertos 22, 80 y 2049
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '80'
+        ToPort: '80'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '2049'
+        ToPort: '2049'
+        CidrIp: 0.0.0.0/0
+      Tags:
+        -
+          Key: "Name"
+          Value: !Ref 'SGName' 
+
+  #-------------
+  # EFS
+ FileSystem:
+    Type: AWS::EFS::FileSystem
+    Properties:
+      PerformanceMode: generalPurpose
+      FileSystemTags:
+        -
+          Key: "Name"
+          Value: !Ref 'EFSName' 
+
+          
+  MountTarget:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref FileSystem
+      SubnetId: !Ref Subnet6
+      SecurityGroups: !Ref InstanceSecurityGroup
+
+Outputs:
+  idEFS:
+    Description: Id del EFS
+    Value: !Ref FileSystem 
+  idSecurityGroup:
+    Description: Id del security group
+    Value: !Ref InstanceSecurityGroup 

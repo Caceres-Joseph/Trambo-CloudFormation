@@ -267,7 +267,10 @@ Resources:
       RouteTableId: !Ref PrivateRouteTable
  
 
-#Outputs:
-#  VPCID:
-#    Description: ID de la VPC
-#    Value: !Ref VPC
+Outputs:
+  idVPC:
+    Description: ID de la VPC
+    Value: !Ref VPC
+  IdSubRed6:
+    Description: ID de la Subred publica
+    Value: !Ref Subred6
