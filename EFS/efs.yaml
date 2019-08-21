@@ -55,7 +55,7 @@ Resources:
 
   #-------------
   # EFS
- FileSystem:
+  FileSystem:
     Type: AWS::EFS::FileSystem
     Properties:
       PerformanceMode: generalPurpose
@@ -70,7 +70,9 @@ Resources:
     Properties:
       FileSystemId: !Ref FileSystem
       SubnetId: !Ref Subnet6
-      SecurityGroups: !Ref InstanceSecurityGroup
+      SecurityGroups: 
+        -
+          !Ref InstanceSecurityGroup
 
 Outputs:
   idEFS:
