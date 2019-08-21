@@ -1,0 +1,82 @@
+Description: "Template que genera una VPC, un EFS ..."
+
+Parameters: 
+
+  #+------------------------------------------------------------------
+  #|  ARCHIVO VPC.yaml
+  #+------------------------------------------------------------------
+
+  #-------------
+  # VPC
+  VPCName:
+    Description: "Nombre de la VPC a crear."
+    Type: String
+    Default: "vpc_joseph"
+    
+  #-------------
+  # Subredes
+
+  Subnet1Name:
+    Description: "Nombre de la subnet 1 privada"
+    Type: String
+    Default: "subred1_joseph"
+  Subnet2Name:
+    Description: "Nombre de la subnet 2 privada"
+    Type: String
+    Default: "subred2_joseph"
+  Subnet3Name:
+    Description: "Nombre de la subnet 3 privada"
+    Type: String
+    Default: "subred3_joseph"
+  Subnet4Name:
+    Description: "Nombre de la subnet 4 pública"
+    Type: String
+    Default: "subred4_joseph"
+  Subnet5Name:
+    Description: "Nombre de la subnet 5 pública"
+    Type: String
+    Default: "subred5_joseph"
+  Subnet6Name:
+    Description: "Nombre de la subnet 6 pública"
+    Type: String
+    Default: "subred6_joseph"
+
+  #-------------
+  # Gateway
+  GatewayName:
+    Description: "Nombre del gateway"
+    Type: String
+    Default: "gtw_joseph"
+
+  #-------------
+  # Public route table
+  PublicRouteTableName:
+    Description: "Nombre de la Public Route Table"
+    Type: String
+    Default: "rtPublic_joseph"
+    
+  #-------------
+  # Private route table
+  PrivateRouteTableName:
+    Description: "Nombre de la Private Route Table"
+    Type: String
+    Default: "rtPrivate_joseph"
+
+
+Resources:
+
+  VPC1:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      Parameters:
+        VPCName: !Ref VPCName
+        Subnet1Name: !Ref Subnet1Name
+        Subnet2Name: !Ref Subnet2Name
+        Subnet3Name: !Ref Subnet3Name
+        Subnet4Name: !Ref Subnet4Name
+        Subnet5Name: !Ref Subnet5Name
+        Subnet6Name: !Ref Subnet6Name
+        GatewayName: !Ref GatewayName
+        PublicRouteTableName: !Ref PublicRouteTableName
+        PrivateRouteTableName: !Ref PrivateRouteTableName 
+      TemplateURL: https://bckt-joseph.s3-us-west-2.amazonaws.com/Ejerccio5/VPC/vpc.yaml 
