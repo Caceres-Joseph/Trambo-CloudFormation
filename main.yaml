@@ -42,3 +42,14 @@ Resources:
         VPC: !GetAtt 'VPC.Outputs.idVPC'
         Subnet6: !GetAtt 'VPC.Outputs.IdSubRed6'
       TemplateURL: !Sub https://${BucketName}/Ejerccio5/EFS/efs.yaml 
+
+  #-------------
+  # Launch Configuration
+  
+  LaunchConfig:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      Parameters:
+        SGName: !GetAtt 'VPC.Outputs.idSecurityGroup'
+        EFSName: !GetAtt 'VPC.Outputs.idEFS'
+      TemplateURL: !Sub https://${BucketName}/Ejerccio5/LC/lc.yaml 
