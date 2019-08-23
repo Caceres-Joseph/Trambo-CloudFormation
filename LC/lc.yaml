@@ -4,11 +4,7 @@ Description: Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-ta
 
 Parameters: 
   #-------------
-  # VPC
-  LCName:
-    Description: Nombre de Launch Configuration
-    Type: String 
-    Default: lc_joseph
+  # LC 
 
   SGName:
     Description: Nombre del security group
@@ -23,30 +19,28 @@ Resources:
   LaunchConfig: 
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties: 
-      KeyName: !Ref LCName
       ImageId: ami-0b37e9efc396e4c38
       SecurityGroups: 
         - !Ref SGName 
       InstanceType: t2.micro
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash
+            sudo apt-get update
+            sudo apt-get install awscli -y
+            sudo apt update
+            sudo apt install nginx -y
 
-  UserData:
-    Fn::Base64:
-      !Sub |
-        #!/bin/bash
-        sudo apt-get update
-        sudo apt-get install awscli -y
-        sudo apt update
-        sudo apt install nginx -y
+            sudo apt-get install nfs-common
+            git clone https://github.com/aws/efs-utils
+            cd efs-utils
+            sudo apt-get update
+            sudo apt-get -y install binutils
+            sudo ./build-deb.sh
+            sudo apt-get -y install ./build/amazon-efs-utils*deb
 
-        sudo apt-get install nfs-common
-        git clone https://github.com/aws/efs-utils
-        cd efs-utils
-        sudo apt-get update
-        sudo apt-get -y install binutils
-        sudo ./build-deb.sh
-        sudo apt-get -y install ./build/amazon-efs-utils*deb
-
-        cd /var/www/
-        sudo mount -t efs ${EFSName}:/ /var/www/html/
-        systemctl start nginx
-        echo "<html><h1> Hola mundo </h1></html>" >> /var/www/html/index.html
+            cd /var/www/
+            sudo mount -t efs ${EFSName}:/ /var/www/html/
+            systemctl start nginx
+            echo "<html><h1> Hola mundo </h1></html>" >> /var/www/html/index.html
