@@ -53,3 +53,31 @@ Resources:
         SGName: !GetAtt 'EFS.Outputs.idSecurityGroup'
         EFSName: !GetAtt 'EFS.Outputs.idEFS'
       TemplateURL: !Sub https://${BucketName}/Ejerccio5/LC/lc.yaml
+
+  #-------------
+  # Load Balancer
+  
+  LoadBalancer:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      Parameters:
+        Subnet6: !GetAtt 'VPC.Outputs.IdSubRed6'
+        SGName: !GetAtt 'EFS.Outputs.idSecurityGroup'
+      TemplateURL: !Sub https://${BucketName}/Ejerccio5/LB/lb.yaml
+
+  
+  #-------------
+  # Auto Scaling Group
+  
+  WebServerGroup:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      Parameters:
+        Subnet4: !GetAtt 'VPC.Outputs.IdSubRed4'
+        Subnet5: !GetAtt 'VPC.Outputs.IdSubRed5'
+        Subnet6: !GetAtt 'VPC.Outputs.IdSubRed6'
+        LBName: !GetAtt 'LoadBalancer.Outputs.idLB'
+        LCName: !GetAtt 'LaunchConfig.Outputs.idLC'
+      TemplateURL: !Sub https://${BucketName}/Ejerccio5/AG/ag.yaml
+
+  

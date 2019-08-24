@@ -1,0 +1,49 @@
+Description: Balanceador de carga clásico
+
+Parameters: 
+  #-------------
+  # Balanceador de carga
+     
+  Subnet6:
+    Description: Subnet publica
+    Type: String 
+
+  #-------------
+  # Security Group
+  SGName:
+    Description: Nombre del security group
+    Type: String
+
+
+Resources:
+  ElasticLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Listeners:
+      - LoadBalancerPort: '80'
+        InstancePort: '80'
+        Protocol: HTTP
+      HealthCheck:
+        Target:
+          Fn::Join:
+          - ''
+          - - 'HTTP:'
+            - '80'
+            - "/index.html"
+        HealthyThreshold: '3'
+        UnhealthyThreshold: '5'
+        Interval: '30'
+        Timeout: '5'
+      Subnets:
+      - !Ref Subnet6 
+      SecurityGroups: 
+      - !Ref SGName 
+      Tags:
+      - Key: Name
+        Value: lb_joseph 
+
+Outputs:
+  idLB:
+    Description: Id del LB
+    Value: !Ref ElasticLoadBalancer 
+

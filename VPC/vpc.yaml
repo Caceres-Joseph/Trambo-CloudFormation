@@ -261,6 +261,15 @@ Outputs:
   idVPC:
     Description: ID de la VPC
     Value: !Ref VPC
+
+  IdSubRed4:
+    Description: ID de la Subred publica
+    Value: !Ref Subred4
+  
+  IdSubRed5:
+    Description: ID de la Subred publica
+    Value: !Ref Subred5
+  
   IdSubRed6:
     Description: ID de la Subred publica
     Value: !Ref Subred6

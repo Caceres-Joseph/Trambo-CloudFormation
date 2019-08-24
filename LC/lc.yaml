@@ -1,6 +1,6 @@
 
 
-Description: Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-tables 
+Description: Launch Configuration 
 
 Parameters: 
   #-------------
@@ -44,3 +44,9 @@ Resources:
             sudo mount -t efs ${EFSName}:/ /var/www/html/
             systemctl start nginx
             echo "<html><h1> Hola mundo </h1></html>" >> /var/www/html/index.html
+            
+Outputs:
+  idLC:
+    Description: Id del LC
+    Value: !Ref LaunchConfig 
+

@@ -1,0 +1,44 @@
+
+Description: Auto scaling group
+
+Parameters: 
+  #-------------
+  # Subredes públicas
+
+  Subnet4:
+    Description: Subnet publica
+    Type: String 
+
+  Subnet5:
+    Description: Subnet publica
+    Type: String 
+
+  Subnet6:
+    Description: Subnet publica
+    Type: String 
+
+  #-------------
+  # Load Balancer 
+  LBName:
+    Description: Id del balanceador
+    Type: String 
+
+  #-------------
+  # Launch Configuration
+  LCName:
+    Description: Id del Launch Configuration
+    Type: String 
+
+Resources:
+
+  WebServerGroup: 
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties: 
+      LaunchConfigurationName: !Ref LCName
+      MinSize: "2"
+      MaxSize: "2"
+      DesiredCapacity: "2"
+      LoadBalancerNames: 
+        - !Ref LBName
+      VPCZoneIdentifier: 
+        - !Ref Subnet6
