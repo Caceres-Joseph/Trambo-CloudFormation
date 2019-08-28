@@ -5,7 +5,7 @@ Description: Launch Configuration
 Parameters: 
   #-------------
   # LC 
-
+  
   SGName:
     Description: Nombre del security group
     Type: String 
@@ -48,5 +48,4 @@ Resources:
 Outputs:
   idLC:
     Description: Id del LC
-    Value: !Ref LaunchConfig 
-
+    Value: !Ref LaunchConfig

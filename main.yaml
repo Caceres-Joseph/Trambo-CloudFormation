@@ -64,7 +64,6 @@ Resources:
         Subnet6: !GetAtt 'VPC.Outputs.IdSubRed6'
         SGName: !GetAtt 'EFS.Outputs.idSecurityGroup'
       TemplateURL: !Sub https://${BucketName}/Ejerccio5/LB/lb.yaml
-
   
   #-------------
   # Auto Scaling Group
@@ -79,5 +78,3 @@ Resources:
         LBName: !GetAtt 'LoadBalancer.Outputs.idLB'
         LCName: !GetAtt 'LaunchConfig.Outputs.idLC'
       TemplateURL: !Sub https://${BucketName}/Ejerccio5/AG/ag.yaml
-
-  
