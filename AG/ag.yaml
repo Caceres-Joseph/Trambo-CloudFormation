@@ -35,9 +35,9 @@ Resources:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties: 
       LaunchConfigurationName: !Ref LCName
-      MinSize: "2"
-      MaxSize: "2"
-      DesiredCapacity: "2"
+      MinSize: 2
+      MaxSize: 2
+      DesiredCapacity: 2
       LoadBalancerNames: 
         - !Ref LBName
       VPCZoneIdentifier: 

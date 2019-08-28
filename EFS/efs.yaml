@@ -1,4 +1,4 @@
-Description: Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-tables 
+Description: Crear un sistema de archivos
 
 Parameters: 
   #-------------
