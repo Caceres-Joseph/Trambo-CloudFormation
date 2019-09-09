@@ -7,11 +7,11 @@ Parameters:
   # LC 
   
   SGName:
-    Description: Nombre del security group
+    Description: Name security group
     Type: String 
 
   EFSName:
-    Description: Id del EFS
+    Description: Id EFS
     Type: String
 
 

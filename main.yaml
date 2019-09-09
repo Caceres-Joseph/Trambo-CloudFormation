@@ -1,20 +1,20 @@
-Description: "Template que genera una VPC, un EFS ..."
+Description: "Template that generates a VPC, an EFS ..."
 
 Parameters: 
 
   #+------------------------------------------------------------------
-  #|  ARCHIVO VPC.yaml
+  #|  File VPC.yaml
   #+------------------------------------------------------------------
 
   #-------------
   # VPC
   VPCName:
-    Description: Nombre de la VPC a crear.
+    Description: VPC Name.
     Type: String
     Default: vpc_joseph
 
   #+------------------------------------------------------------------
-  #|  ARCHIVO EFS.yaml
+  #|  File EFS.yaml
   #+------------------------------------------------------------------
 
   BucketName:

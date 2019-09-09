@@ -1,59 +1,59 @@
-Description: Crear una VPC con 6 Subnets (3 privadas y 3 públicas) y 2 route-tables 
+Description: Create a VPC with 6 Subnets (3 private and 3 public) and 2 route-tables 
 
 Parameters: 
   #-------------
   # VPC
   VPCName:
-    Description: Nombre de la VPC a crear.
+    Description: Name VPC
     Type: String
     Default: vpc_joseph
     
   #-------------
-  # Subredes
+  # Subnets
 
   Subnet1Name:
-    Description: Nombre de la subnet 1 privada
+    Description: Name Subnet 1
     Type: String
     Default: subred1_joseph
   Subnet2Name:
-    Description: Nombre de la subnet 2 privada
+    Description: Name Subnet 2
     Type: String
     Default: subred2_joseph
   Subnet3Name:
-    Description: Nombre de la subnet 3 privada
+    Description: Name Subnet 3
     Type: String
     Default: subred3_joseph
   Subnet4Name:
-    Description: Nombre de la subnet 4 pública
+    Description: Name Subnet 4
     Type: String
     Default: subred4_joseph
   Subnet5Name:
-    Description: Nombre de la subnet 5 pública
+    Description: Name Subnet 5
     Type: String
     Default: subred5_joseph
   Subnet6Name:
-    Description: Nombre de la subnet 6 pública
+    Description: Name Subnet 6
     Type: String
     Default: subred6_joseph
 
   #-------------
   # Gateway
   GatewayName:
-    Description: Nombre del gateway
+    Description: Gateway name
     Type: String
     Default: gtw_joseph
 
   #-------------
   # Public route table
   PublicRouteTableName:
-    Description: Nombre de la Public Route Table
+    Description: Name Public Route Table
     Type: String
     Default: rtPublic_joseph
     
   #-------------
   # Private route table
   PrivateRouteTableName:
-    Description: Nombre de la Private Route Table
+    Description: Name Private Route Table
     Type: String
     Default: rtPrivate_joseph
 
@@ -91,7 +91,7 @@ Resources:
           Value: !Ref 'VPCName'
 
   #-------------
-  # Subredes
+  # Subnets
 
   Subred1:
     Type: AWS::EC2::Subnet
@@ -196,7 +196,7 @@ Resources:
         - Key: Name
           Value: !Ref 'PublicRouteTableName' 
 
-  #Agregando el Gateway
+  #Added Gateway
   PublicRoute:
     Type: AWS::EC2::Route 
     Properties:
@@ -207,7 +207,7 @@ Resources:
         Ref: InternetGateway
 
 
-  #Asociando
+  #Adding
   PublicRouteTableAsosociation4:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
@@ -237,7 +237,7 @@ Resources:
         - Key: Name
           Value: !Ref 'PrivateRouteTableName' 
 
-  #Asociando
+  #Adding
   PublicRouteTableAsosociation1:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
@@ -259,17 +259,17 @@ Resources:
 
 Outputs:
   idVPC:
-    Description: ID de la VPC
+    Description: ID VPC
     Value: !Ref VPC
 
   IdSubRed4:
-    Description: ID de la Subred publica
+    Description: ID public subnet
     Value: !Ref Subred4
   
   IdSubRed5:
-    Description: ID de la Subred publica
+    Description: ID public subnet
     Value: !Ref Subred5
   
   IdSubRed6:
-    Description: ID de la Subred publica
+    Description: ID public subnet
     Value: !Ref Subred6

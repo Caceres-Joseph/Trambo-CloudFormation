@@ -3,30 +3,30 @@ Description: Auto scaling group
 
 Parameters: 
   #-------------
-  # Subredes públicas
+  # public subnets
 
   Subnet4:
-    Description: Subnet publica
+    Description: Public subnet
     Type: String 
 
   Subnet5:
-    Description: Subnet publica
+    Description: Public subnet
     Type: String 
 
   Subnet6:
-    Description: Subnet publica
+    Description: Public subnet 
     Type: String 
 
   #-------------
   # Load Balancer 
   LBName:
-    Description: Id del balanceador
+    Description: Id loadbalancer
     Type: String 
 
   #-------------
   # Launch Configuration
   LCName:
-    Description: Id del Launch Configuration
+    Description: Id Launch Configuration
     Type: String 
 
 Resources:

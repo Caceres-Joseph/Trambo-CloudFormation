@@ -1,17 +1,17 @@
-Description: Balanceador de carga clásico
+Description: Clasic load balancer
 
 Parameters: 
   #-------------
-  # Balanceador de carga
+  # Load balancer
      
   Subnet6:
-    Description: Subnet publica
+    Description: Public subnet
     Type: String 
 
   #-------------
   # Security Group
   SGName:
-    Description: Nombre del security group
+    Description: Name security group
     Type: String
 
 
@@ -44,6 +44,6 @@ Resources:
 
 Outputs:
   idLB:
-    Description: Id del LB
+    Description: Id LB
     Value: !Ref ElasticLoadBalancer 
 

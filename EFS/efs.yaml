@@ -1,34 +1,34 @@
-Description: Crear un sistema de archivos
+Description: Create a EFS
 
 Parameters: 
   #-------------
   # VPC
   VPC:
-    Description: Id de la vpc
+    Description: VPC ID
     Type: String 
 
   Subnet6:
-    Description: Subnet publica
+    Description: public subnet
     Type: String 
 
   #-------------
   # Security Group
   SGName:
-    Description: Nombre del security group
+    Description: Security group name
     Type: String
     Default: sg_joseph
 
   #-------------
   # EFS
   EFSName:
-    Description: Nombre del sistema de archivos
+    Description: Name file system
     Type: String
     Default: efs_joseph
 
 Resources:
 
   #-------------
-  # Grupos de seguridad 
+  # Security group
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -73,8 +73,8 @@ Resources:
 
 Outputs:
   idEFS:
-    Description: Id del EFS
+    Description: Id EFS
     Value: !Ref FileSystem 
   idSecurityGroup:
-    Description: Id del security group
+    Description: Id security group
     Value: !Ref InstanceSecurityGroup 
